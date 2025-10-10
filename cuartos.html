@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alojamientos – Demo estático</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark light; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
+    .badge { background: rgba(0,0,0,.65); }
+    .card-img { aspect-ratio: 16/11; object-fit: cover; }
+  </style>
+</head>
+<body class="bg-neutral-100 text-neutral-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-4">
+      <a href="#" class="flex items-center gap-2 font-bold text-xl">
+        <span class="inline-block w-6 h-6 rounded-md bg-rose-500"></span>
+        Huácar Stay
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#" class="font-semibold">Alojamientos</a>
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Experiencias</a>
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Servicios</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-3">
+        <button class="hidden sm:inline-flex px-4 py-2 rounded-full border border-neutral-300 hover:bg-neutral-50 text-sm">Conviértete en un tilin</button>
+        <button class="p-2 rounded-full hover:bg-neutral-100" aria-label="Idioma">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </button>
+        <button class="p-2 rounded-full hover:bg-neutral-100" aria-label="Menú">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+      <div class="glass shadow-sm rounded-full border border-neutral-200">
+        <form id="searchForm" class="grid grid-cols-1 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-neutral-200">
+          <label class="px-5 py-3 flex flex-col">
+            <span class="text-[11px] uppercase tracking-wider text-neutral-500">Dónde</span>
+            <input id="inputWhere" type="text" placeholder="Explora destinos" class="bg-transparent outline-none placeholder:text-neutral-400">
+          </label>
+          <label class="px-5 py-3 flex flex-col">
+            <span class="text-[11px] uppercase tracking-wider text-neutral-500">Check-in</span>
+            <input type="date" class="bg-transparent outline-none">
+          </label>
+          <label class="px-5 py-3 flex flex-col">
+            <span class="text-[11px] uppercase tracking-wider text-neutral-500">Check-out</span>
+            <input type="date" class="bg-transparent outline-none">
+          </label>
+          <label class="px-5 py-3 flex flex-col">
+            <span class="text-[11px] uppercase tracking-wider text-neutral-500">Cuantos</span>
+            <input type="number" min="1" value="2" class="bg-transparent outline-none">
+          </label>
+          <div class="p-2 flex items-center justify-center">
+            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-500 text-white font-medium hover:bg-rose-600">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="mt-3 flex flex-wrap gap-2 text-sm">
+        <button data-filter="Varsovia" class="filter-chip px-3 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100">Varsovia</button>
+        <button data-filter="Cracovia" class="filter-chip px-3 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100">Cracovia</button>
+        <button data-filter="Wola" class="filter-chip px-3 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100">Wola</button>
+        <button data-filter="Centro" class="filter-chip px-3 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100">Centro</button>
+        <button data-filter="Todos" class="filter-chip px-3 py-1.5 rounded-full border border-neutral-300 bg-neutral-900 text-white">Todos</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-4">Alojamientos populares</h2>
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Card template items (static) -->
+        
+        <!-- Varsovia - Mokotów -->
+        <article class="card group" data-city="Varsovia" data-area="Mokotów">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1760092376493-dd5c112bb548?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sala luminosa en Mokotów" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Habitación en Mokotów</h3>
+            <p class="text-sm text-neutral-600">Anfitrión particular • 2–4 de ene</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">S/ 198 por 2 noches</span>
+              <span class="flex items-center gap-1" title="Valoración">⭐ 4.96</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Varsovia - Centro -->
+        <article class="card group" data-city="Varsovia" data-area="Centro">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1760092623998-07f12722cbc1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Habitación moderna en el Centro" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Habitación en Centro de la ciudad</h3>
+            <p class="text-sm text-neutral-600">Anfitrión particular • 19–21 de dic</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">282 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.89</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Varsovia - Wola (apto) -->
+        <article class="card group" data-city="Varsovia" data-area="Wola">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2fba?q=80&w=1200&auto=format&fit=crop" alt="Apartamento en Wola" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Apartamento en Wola</h3>
+            <p class="text-sm text-neutral-600">Anfitrión comercial • 9–11 de ene</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">419 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.93</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Varsovia - Centro (apto) -->
+        <article class="card group" data-city="Varsovia" data-area="Centro">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1521783988139-893ce0b7a98e?q=80&w=1200&auto=format&fit=crop" alt="Apartamento en Centro" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Apartamento en Centro de la ciudad</h3>
+            <p class="text-sm text-neutral-600">Anfitrión comercial • 9–11 de ene</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">385 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.86</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cracovia - Kazimierz -->
+        <article class="card group" data-city="Cracovia" data-area="Kazimierz">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop" alt="Loft en Kazimierz" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Loft en Kazimierz</h3>
+            <p class="text-sm text-neutral-600">Anfitrión particular • 5–7 de dic</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">259 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.94</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Más tarjetas de ejemplo... -->
+        <article class="card group" data-city="Cracovia" data-area="Centro">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=1200&auto=format&fit=crop" alt="Estudio céntrico" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Estudio en Centro</h3>
+            <p class="text-sm text-neutral-600">Anfitrión particular • 12–14 de ene</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">329 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.89</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card group" data-city="Varsovia" data-area="Praga-Południe">
+          <div class="relative overflow-hidden rounded-2xl bg-neutral-200">
+            <img class="w-full card-img transition-transform duration-300 group-hover:scale-105" src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop" alt="Departamento colorido" />
+            <span class="badge absolute left-3 top-3 text-xs text-white px-2.5 py-1 rounded-full">Favorito entre huéspedes</span>
+            <button class="absolute right-3 top-3 p-2 bg-white/90 rounded-full shadow hover:scale-105" aria-label="Guardar">❤</button>
+          </div>
+          <div class="pt-2 flex flex-col gap-1">
+            <h3 class="font-semibold">Habitación en Praga-Południe</h3>
+            <p class="text-sm text-neutral-600">Anfitrión particular • 5–7 de dic</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="font-medium">259 zł por 2 noches</span>
+              <span class="flex items-center gap-1">⭐ 4.92</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-neutral-200 py-10 mt-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-6 md:items-center md:justify-between text-sm text-neutral-600">
+      <p>© <span id="year"></span> Huácar Stay — Página informativa (demo)</p>
+      <nav class="flex flex-wrap gap-4">
+        <a href="#" class="hover:text-neutral-900">Política de privacidad</a>
+        <a href="#" class="hover:text-neutral-900">Términos</a>
+        <a href="#" class="hover:text-neutral-900">Contacto</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Año actual
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Búsqueda por texto (dónde)
+    const inputWhere = document.getElementById('inputWhere');
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+
+    function applyFilters(keyword = '', chip = '') {
+      const k = keyword.trim().toLowerCase();
+      const c = chip.trim().toLowerCase();
+
+      cards.forEach(card => {
+        const city = (card.dataset.city || '').toLowerCase();
+        const area = (card.dataset.area || '').toLowerCase();
+        const text = (card.innerText || '').toLowerCase();
+
+        const matchKeyword = k ? (city.includes(k) || area.includes(k) || text.includes(k)) : true;
+        const matchChip = !c || c === 'todos' ? true : (city.includes(c) || area.includes(c));
+
+        card.style.display = (matchKeyword && matchChip) ? '' : 'none';
+      });
+    }
+
+    inputWhere.addEventListener('input', (e) => {
+      applyFilters(e.target.value, document.querySelector('.filter-chip.active')?.dataset.filter || '');
+    });
+
+    // Chips de filtro
+    const chips = document.querySelectorAll('.filter-chip');
+    chips.forEach(btn => {
+      btn.addEventListener('click', () => {
+        chips.forEach(b => b.classList.remove('active','bg-neutral-900','text-white'));
+        btn.classList.add('active','bg-neutral-900','text-white');
+        applyFilters(inputWhere.value, btn.dataset.filter);
+      });
+    });
+
+    // Submit del formulario (evitar recarga)
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      applyFilters(inputWhere.value, document.querySelector('.filter-chip.active')?.dataset.filter || '');
+    });
+  </script>
+</body>
+</html>
