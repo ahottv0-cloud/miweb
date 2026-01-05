@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
     :root { color-scheme: dark light; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
@@ -47,6 +48,7 @@
         <a href="cuartos.html" class="text-neutral-700 hover:text-neutral-900">Cuartos</a>
         <a href="#promociones" class="text-neutral-700 hover:text-neutral-900">Promociones</a>
         <a href="#contacto" class="text-neutral-700 hover:text-neutral-900">Contacto</a>
+        <a href="#ruta" class="pill-link">Ruta Fácil</a>
       </nav>
 
       <div class="ml-auto flex items-center gap-2">
@@ -93,6 +95,34 @@
     <p class="text-neutral-600">WhatsApp: <a class="text-rose-600 hover:underline" href="https://wa.me/51999999999" target="_blank" rel="noopener">+51 999 999 999</a> · Telegram: <a class="text-rose-600 hover:underline" href="#" target="_blank" rel="noopener">@tu_canal</a></p>
   </section>
 
+  <section id="ruta" class="bg-neutral-50 border-t border-neutral-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="text-xl font-semibold">Ruta Fácil</h2>
+            <p class="text-neutral-600">Ubica rápidamente Huácar Stay con tu ubicación o escribiendo un punto de partida.</p>
+          </div>
+          <a id="mapsLink" class="pill-link" href="https://www.google.com/maps" target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+
+        <div class="ruta-card">
+          <label for="originInput" class="text-sm font-medium text-neutral-800">Origen (opcional)</label>
+          <input id="originInput" class="ruta-input" type="text" placeholder="Ej: Plaza de Armas de Huánuco" autocomplete="off">
+
+          <div class="ruta-actions">
+            <button id="geoButton" type="button" class="ruta-button">Usar mi ubicación</button>
+            <button id="updateRoute" type="button" class="ruta-button ruta-button-secondary">Actualizar ruta</button>
+          </div>
+
+          <div class="iframe-wrapper">
+            <iframe id="mapFrame" title="Mapa hacia Huácar Stay" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="border-t border-neutral-200 py-8 mt-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-neutral-600 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
       <p>© <span id="year"></span> Huácar Stay</p>
@@ -103,31 +133,6 @@
     </div>
   </footer>
 
-  <script>
-    // Año dinámico
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Cuenta regresiva al 28 de setiembre del OTRO año
-    (function () {
-      const label = document.getElementById('countdownLabel');
-      const yearEl = document.getElementById('countdownYear');
-      const now = new Date();
-      const targetYear = now.getFullYear() + 1; // del otro año
-      if (yearEl) yearEl.textContent = targetYear;
-      const target = new Date(`${targetYear}-09-28T00:00:00`);
-
-      function update() {
-        const t = target - new Date();
-        if (t <= 0) { label.textContent = '¡Llegó el día!'; clearInterval(timer); return; }
-        const d = Math.floor(t / (1000*60*60*24));
-        const h = Math.floor((t / (1000*60*60)) % 24);
-        const m = Math.floor((t / (1000*60)) % 60);
-        const s = Math.floor((t / 1000) % 60);
-        label.textContent = `${d}d ${h}h ${m}m ${s}s`;
-      }
-      update();
-      const timer = setInterval(update, 1000);
-    })();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
